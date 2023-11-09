@@ -1,33 +1,19 @@
 ﻿#include <stdio.h>
 
-unsigned long long int fibonacci(unsigned int n) {
-	if (n == 0) {
-		return 0;
+void towerOfHanoi(int n, char source, char auxiliary, char destination) {
+	if (n == 1) {
+		printf("Move disk 1 from %c to %c\n", source, destination);
+		return;
 	}
-	else if (n == 1) {
-		return 1;
-	}
-
-	unsigned long long int prev1 = 0;
-	unsigned long long int prev2 = 1;
-	unsigned long long int result = 0;
-
-	for (unsigned int i = 2; i <= n; ++i) {
-		result = prev1 + prev2;
-		prev1 = prev2;
-		prev2 = result;
-	}
-
-	return result;
+	towerOfHanoi(n - 1, source, destination, auxiliary);
+	printf("Move disk %d from %c to %c\n", n, source, destination);
+	towerOfHanoi(n - 1, auxiliary, source, destination);
 }
 
 int main() {
-	unsigned int n;
-	printf("請輸入要計算的費波那契數的項數：");
-	scanf("%u", &n);
-
-	unsigned long long int result = fibonacci(n);
-	printf("第 %u 個費波那契數為 %llu\n", n, result);
-
+	int n ;  
+	printf("Please input disk puantity:");
+	scanf("%d", &n);// Number of disks
+	towerOfHanoi(n, 'A', 'B', 'C');  // A, B, and C are the names of the pegs
 	return 0;
 }
